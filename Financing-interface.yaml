@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: financing-interface
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: financing-interface
+  template:
+    metadata:
+      labels:
+        app: financing-interface
+    spec:
+      containers:
+      - name: financing-interface
+        image: financing-interface
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: financing-interface
+spec:
+  selector:
+    app: financing-interface
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP

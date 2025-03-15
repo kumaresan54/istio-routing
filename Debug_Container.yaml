@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: debug-container
+  labels:
+    account: debug-container
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: debug-container
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: debug-container
+  template:
+    metadata:
+      labels:
+        app: debug-container
+    spec:
+      serviceAccountName: debug-container
+      containers:
+      - name: debug-container
+        image: curlimages/curl:8.8.0
+        command: ["tail"]
+        args: ["-f", "/dev/null"]
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"

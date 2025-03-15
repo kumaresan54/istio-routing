@@ -1,0 +1,11 @@
+curl financing-service.url.svc.cluster.local:8080/financing/hello
+
+curl -H "market:it" financing-service.url.svc.cluster.local:8080/financing/hello
+
+
+curl financing-interface.url.svc.cluster.local:8080/financing/hello
+
+curl financing-interface.url.svc.cluster.local:8080/financing-interface/hello
+
+
+curl -H "market:de" financing-service.url.svc.cluster.local:8080/financing/hello
