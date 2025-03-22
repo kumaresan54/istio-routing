@@ -1,0 +1,22 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: header-based-routing
+spec:
+  hosts:
+    - financing-service
+  http:
+   - match:
+        - uri:
+            prefix: "/financing/"
+          headers:
+            market:
+              exact: "it"
+     rewrite:
+      uri: "/financing-interface/"
+     route:
+      - destination:
+          host: financing-interface
+   - route:
+        - destination:
+            host: financing-service  # Default route (fallback)
